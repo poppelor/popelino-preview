@@ -12,17 +12,11 @@ const CATS={
   designs:[['sage','מרווה'],['pink','ורוד'],['yellow','צהוב'],['blue','כחול'],['gingham','משבצות'],['floral','פרחוני'],['floral2','פרחוני עדין'],['red','פסים'],['beige','בז\''],['mix','צבעוני'],['mix2','פסטל']].map(([k,n])=>({id:'sh-'+k,img:'img/trofast-'+k+'.jpg',name:n,short:n,price:119}))},
  table:{name:'שולחן',ikea:'FLISAT',thumb:'assets/ikea/flisat-table.png',full:'שולחן ילדים',lead:'שולחן הילדים הופך למגרש משחקים.',
   designs:[['road','כבישים'],['check','משבצות'],['leo','נמר']].map(([k,n])=>({id:'tb-'+k,img:'img/table-'+k+'.jpg',name:n,short:n,price:99}))},
- kitchen:{name:'מטבח',ikea:'DUKTIG',thumb:'assets/ikea/duktig.png',full:'מטבח למשחק',lead:'המטבח הופך לחנות קטנה ואמיתית.',
+ kitchen:{name:'מטבח',ikea:'DUKTIG',thumb:'assets/ikea/duktig.png',base:'assets/ikea/duktig-back.png',full:'מטבח למשחק',lead:'המטבח הופך לחנות קטנה ואמיתית.',
   designs:[['pizzeria','פיצרייה','pizzeria.jpg'],['ice','גלידרייה','icecream.jpg'],['market','מכולת','hero-market.jpg']].map(([k,n,f])=>({id:'kt-'+k,img:'img/'+f,name:n,short:n,price:159}))}
 };
-const PACKS={
- 'dh-home':{id:'pk-home',name:'ערכת "בית חם"',price:59,items:['🪴','💡','🐈','🕰️','🧸','🖼️']},
- 'dh-market':{id:'pk-market',name:'ערכת "מכולת"',price:69,items:['🛒','🍎','🧺','🥖','🥕','🧃']},
- 'dh-forest':{id:'pk-forest',name:'ערכת "חברי היער"',price:59,items:['🌲','🍄','🦉','🦊','🌼','🦔']},
- 'kt-pizzeria':{id:'pk-shop',name:'ערכת קיר "חנות"',price:49,img:'img/wall-kit.jpg'},
- 'kt-market':{id:'pk-shop',name:'ערכת קיר "חנות"',price:49,img:'img/wall-kit.jpg'}
-};
-const NOCUT={'tb-leo':1};Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(!d.w)d.ov='assets/ovl/'+d.id+'.png'}));Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(d.img&&!NOCUT[d.id])d.cut='assets/cut/'+d.img.split('/').pop().replace('.jpg','.png')}));
+const PACKS={}; /* real accessory kits: none finished in the owner's folder yet (בית בובות מדבקות אביזרים חלונות ודלת לבית is empty) */
+const NOCUT={'tb-leo':1};Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(!d.w&&d.cat!='shelf'&&!d.id.startsWith('sh-'))d.ov='assets/ovl/'+d.id+'.png'}));Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(d.img&&!NOCUT[d.id])d.cut='assets/cut/'+d.img.split('/').pop().replace('.jpg','.png');if(d.id.startsWith('kt-'))d.cut='assets/cut/'+d.id+'-back.png'}));
 const ALL={};Object.entries(CATS).forEach(([c,C])=>C.designs.forEach(d=>{d.cat=c;ALL[d.id]=d}));
 Object.values(PACKS).forEach(p=>{if(!ALL[p.id])ALL[p.id]={...p,pack:true,cat:p.img?'kitchen':'dollhouse'}});
 const houseSVG=w=>`<div class="house" style="position:absolute;inset:0"><img src="assets/plain.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"><div style="position:absolute;inset:0">${W[w].svg().replace('xMidYMid slice','xMidYMid meet')}</div></div>`;
@@ -89,7 +83,7 @@ window.TryOn=function(root,opt={}){
  stageBox.innerHTML=`<div class="stage"><span class="ph">תמונת הדמיה</span></div>${opt.cap?'<div class="stage-cap"><span class="cap-l"></span><span>מחירים לדוגמה</span></div>':''}`;
  const stage=$('.stage',stageBox);let cat=null,des=null;
  function layer(d){const L=document.createElement('div');L.className='lay'+(d.w?' house':'');
-  if(opt.cut&&d.ov){L.className+=' ovl';L.innerHTML=`<div class="ob"><img src="${CATS[d.cat].thumb}" alt=""><img src="${d.ov}" alt="${d.name}"></div>`;return L}
+  if(opt.cut&&d.ov){L.className+=' ovl';L.innerHTML=`<div class="ob"><img src="${CATS[d.cat].base||CATS[d.cat].thumb}" alt=""><img src="${d.ov}" alt="${d.name}"></div>`;return L}
   if(opt.cut&&d.cut)L.className+=' cut';
   L.innerHTML=d.w?`<div class="hs"><img src="assets/plain.webp" alt=""></div>`:`<img src="${opt.cut&&d.cut?d.cut:d.img}" alt="${d.name}">`;
   if(d.w){const s=skinEl(d.w);$('.hs',L).appendChild(s)}return L}

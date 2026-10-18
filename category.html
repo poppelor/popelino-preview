@@ -21,11 +21,11 @@ document.querySelector('.side').style.setProperty('--t',TINT[c]);
 const T=TryOn(document.getElementById('sctl'),{stageEl:document.getElementById('sst'),cat:c,title:true,compact:true,cut:true,fade:160,packLbl:'השלימו עם ערכת האביזרים',onDesign:d=>document.querySelectorAll('.pcard').forEach(e=>e.classList.toggle('on',e.dataset.id==d.id))});
 const card=(d,i)=>{const C=P.CATS[d.cat],im=d.pack?P.packThumb(d):d.w?P.houseSVG(d.w):d.cut?`<img class="c" src="${d.cut}" alt="${d.name}" loading="lazy">`:`<img class="ph" src="${d.img}" alt="${d.name}" loading="lazy">`;
  return `<article class="pcard rv${d.pack?' pk':''}${T.des&&T.des.id==d.id?' on':''}" data-id="${d.id}" style="--t:${TC[i%4]}"><div class="im" data-try="${d.id}">${d.pack?'<span class="tag">ערכת אביזרים · נמכרת בנפרד</span>':''}${im}</div><div class="bd"><div><h3>${d.pack?d.name:C.name+' · '+d.name}</h3><span class="meta">${d.pack?'ערכת אביזרים':C.ikea}</span></div><b>₪${d.price}</b></div><button class="add" data-add="${d.id}">+ הוסיפו לסל</button></article>`};
-C.designs.forEach(d=>{if(d.ov)new Image().src=d.ov});new Image().src=C.thumb;
+C.designs.forEach(d=>{if(d.ov)new Image().src=d.ov});new Image().src=C.base||C.thumb;C.designs.forEach(d=>{if(d.cut)new Image().src=d.cut});
 let f='all';
 function draw(){const list=f=='all'?items:f=='packs'?packs:items.filter(d=>d.id==f);
  document.getElementById('grid').innerHTML=list.map(card).join('');document.getElementById('cnt').textContent=list.length+' מוצרים';
- document.querySelectorAll('#grid .pcard:not(.pk)').forEach(el=>{el.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover) and (min-width:821px)').matches)T.setDesign(el.dataset.id)})});
+ document.querySelectorAll('#grid .pcard:not(.pk)').forEach(el=>{el.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover) and (min-width:821px)').matches)T.setDesign(el.dataset.id,true)})});
  document.querySelectorAll('#grid [data-try]').forEach(el=>el.onclick=()=>{const d=P.ALL[el.dataset.try];if(!d.pack){T.setDesign(d.id);if(innerWidth<=820)sheet(true)}});
  P.reveal()}
 const side=document.querySelector('.side'),scr=document.querySelector('.sheet-scrim');
