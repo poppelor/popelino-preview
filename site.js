@@ -8,7 +8,7 @@ const HPRICE={home:149,market:169,ice:159,pizza:159,forest:149};
 const CATS={
  dollhouse:{name:'בית בובות',ikea:'FLISAT',thumb:'assets/ikea/flisat-dollhouse.png',full:'בית בובות/מדף',house:true,lead:'עולם שלם על בית הבובות של איקאה.',
   designs:WO.map(k=>({id:'dh-'+k,w:k,name:W[k].tag,short:W[k].name,price:HPRICE[k]}))},
- shelf:{name:'כוננית',ikea:'TROFAST',thumb:'assets/ikea/trofast.png',base:'assets/ikea/trofast-m.png',full:'יחידת אחסון עם קופסאות',lead:'מדבקות לקופסאות ולמסגרת של כוננית TROFAST.',
+ shelf:{name:'כוננית',ikea:'TROFAST',thumb:'assets/ikea/trofast.png',full:'יחידת אחסון עם קופסאות',lead:'מדבקות לקופסאות ולמסגרת של כוננית TROFAST.',
   designs:[['sage','מרווה'],['pink','ורוד'],['yellow','צהוב'],['blue','כחול'],['gingham','משבצות'],['floral','פרחוני'],['floral2','פרחוני עדין'],['red','פסים'],['beige','בז\''],['mix','צבעוני'],['mix2','פסטל']].map(([k,n])=>({id:'sh-'+k,img:'img/trofast-'+k+'.jpg',name:n,short:n,price:119}))},
  table:{name:'שולחן',ikea:'FLISAT',thumb:'assets/ikea/flisat-table.png',full:'שולחן ילדים',lead:'שולחן הילדים הופך למגרש משחקים.',
   designs:[['road','כבישים'],['check','משבצות'],['leo','נמר']].map(([k,n])=>({id:'tb-'+k,img:'img/table-'+k+'.jpg',name:n,short:n,price:99}))},
@@ -16,7 +16,7 @@ const CATS={
   designs:[['pizzeria','פיצרייה','pizzeria.jpg'],['ice','גלידרייה','icecream.jpg'],['market','מכולת','hero-market.jpg']].map(([k,n,f])=>({id:'kt-'+k,img:'img/'+f,name:n,short:n,price:159}))}
 };
 const PACKS={}; /* real accessory kits: none finished in the owner's folder yet (בית בובות מדבקות אביזרים חלונות ודלת לבית is empty) */
-const NOCUT={'tb-leo':1};Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(!d.w&&d.cat!='shelf'&&!d.id.startsWith('sh-'))d.ov='assets/ovl/'+d.id+'.png'}));/* cat4: flat print files from Mia warped onto the fixed base */const OV4={'sh-floral':['assets/ovl/sh4-floral.png','assets/cut/sh4-floral.png'],'sh-gingham':['assets/ovl/sh4-gingham.png','assets/cut/sh4-gingham.png'],'kt-pizzeria':['assets/ovl/kt4-pizzeria.png','assets/cut/kt4-pizzeria-back.png']};Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(d.img&&!NOCUT[d.id])d.cut='assets/cut/'+d.img.split('/').pop().replace('.jpg','.png');if(d.id.startsWith('kt-'))d.cut='assets/cut/'+d.id+'-back.png';if(OV4[d.id]){d.ov=OV4[d.id][0];d.cut=OV4[d.id][1]}}));
+const NOCUT={'tb-leo':1};Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(!d.w&&d.cat!='shelf'&&!d.id.startsWith('sh-'))d.ov='assets/ovl/'+d.id+'.png'}));Object.values(CATS).forEach(C=>C.designs.forEach(d=>{if(d.img&&!NOCUT[d.id])d.cut='assets/cut/'+d.img.split('/').pop().replace('.jpg','.png');if(d.id.startsWith('kt-'))d.cut='assets/cut/'+d.id+'-back.png'}));
 const ALL={};Object.entries(CATS).forEach(([c,C])=>C.designs.forEach(d=>{d.cat=c;ALL[d.id]=d}));
 Object.values(PACKS).forEach(p=>{if(!ALL[p.id])ALL[p.id]={...p,pack:true,cat:p.img?'kitchen':'dollhouse'}});
 const houseSVG=w=>`<div class="house" style="position:absolute;inset:0"><img src="assets/plain.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain"><div style="position:absolute;inset:0">${W[w].svg().replace('xMidYMid slice','xMidYMid meet')}</div></div>`;
