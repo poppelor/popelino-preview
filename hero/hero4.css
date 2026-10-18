@@ -70,8 +70,8 @@ body.h4b{background:var(--gray-b)}
  .wc{width:calc((100% - 24px) / 4);font-size:13px}
  .wc-i{width:60px;height:60px}
  /* keep loose feel on mobile, farther from furniture, inset so no horizontal scroll */
- .fc[data-f="dollhouse"]{--fc:60px!important;left:91%!important;top:4%!important}
- .fc[data-f="shelf"]{--fc:46px!important;left:5%!important;top:28%!important}
+ .fc[data-f="dollhouse"]{--fc:58px!important;left:90%!important;top:8%!important}
+ .fc[data-f="shelf"]{--fc:46px!important;left:3%!important;top:26%!important}
  .fc[data-f="table"]{--fc:52px!important;left:7%!important;top:96%!important}
  .fc[data-f="kitchen"]{--fc:44px!important;left:96%!important;top:66%!important}
  .fc-l{font-size:11px;padding:1px 7px;top:calc(100% + 3px)}
