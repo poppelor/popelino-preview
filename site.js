@@ -147,4 +147,64 @@ window.POP.reviews=function(){const sec=$('#reviews');if(!sec)return;const view=
 /* ---------- reveal ---------- */
 window.POP.reveal=function(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
  $$('.rv:not(.in)').forEach((el,i)=>{el.style.transitionDelay=(i%4)*60+'ms';io.observe(el)});if(location.hash=='#shot')$$('.rv').forEach(e=>e.classList.add('in'))};
+/* ---------- how it works: one dollhouse, a real peel & stick ---------- */
+window.POP.how=function(){const root=$('#how');if(!root||typeof WORLDS=='undefined')return;
+ const VW=1312,VH=1199,SV=()=>WORLDS.market.svg().replace('xMidYMid slice','xMidYMid meet');
+ const REG={bot:[244,711,1137,1028],top:[224,72,1166,709]};
+ const ins=r=>`inset(${r[1]/VH*100}% ${100-r[2]/VW*100}% ${100-r[3]/VH*100}% ${r[0]/VW*100}%)`;
+ const cards=$$('.hs',root),REC=/[?&]rec=1/.test(location.search);
+ const fx=c=>{const f=$('.hs-fx',c);if(f){f.style.webkitMaskImage=f.style.maskImage='url(assets/plain.webp)';f.style.webkitMaskSize=f.style.maskSize='100% 100%'}return f};
+ function layer(c,reg){const hb=$('.hs-hb',c),d=document.createElement('div');d.className='hs-lay';d.innerHTML=SV();d.style.clipPath=ins(reg);hb.insertBefore(d,$('.hs-fx',hb));return d}
+ function sticker(c,reg){const hb=$('.hs-hb',c),tray=$('.hs-tray',c),k=document.createElement('div');k.className='hs-stk';
+  k.innerHTML=`<div class="hs-in"><div class="hs-art">${SV()}</div><div class="hs-flw"><div class="hs-flap"></div></div></div>`;hb.insertBefore(k,$('.hs-fx',hb));
+  const art=$('.hs-art',k),flw=$('.hs-flw',k),flap=$('.hs-flap',k),inn=$('.hs-in',k),cut=document.createElement('div');cut.className='hs-cut';tray.appendChild(cut);
+  const S={d:0,lift:0,f:0,sq:0};let g;
+  function geo(){const W=hb.offsetWidth,H=hb.offsetHeight,rx=reg[0]/VW*W,ry=reg[1]/VH*H,rw=(reg[2]-reg[0])/VW*W,rh=(reg[3]-reg[1])/VH*H;
+   const tx=tray.offsetLeft-hb.offsetLeft,ty=tray.offsetTop-hb.offsetTop,tw=tray.offsetWidth,th=tray.offsetHeight;
+   const s=Math.min(tw*.84/rw,th*.7/rh,1),cx=tx+tw/2,cy=ty+th*.56;
+   g={W,H,rx,ry,rw,rh,s,x0:cx-(rx+rw/2)*s,y0:cy-(ry+rh/2)*s,m:Math.min(rw,rh)};
+   cut.style.cssText=`left:${tw/2-rw*s/2-4}px;top:${th*.56-rh*s/2-4}px;width:${rw*s+8}px;height:${rh*s+8}px`;
+   flw.style.cssText=`left:${rx}px;top:${ry}px;width:${rw}px;height:${rh}px`;inn.style.transformOrigin=`${rx+rw/2}px ${ry+rh/2}px`;draw()}
+  function draw(){if(!g)return;const{rx,ry,rw,rh,s,x0,y0,H,m}=g,f=S.f,arc=Math.sin(Math.PI*f);
+   const x=x0*(1-f),y=y0*(1-f)-arc*H*.16-S.lift*H*.03,sc=s+(1-s)*f+S.lift*.05;
+   k.style.transform=`translate(${x}px,${y}px) scale(${sc}) rotate(${-arc*3}deg)`;
+   k.style.filter=S.f>.995&&S.lift<.01?'none':`drop-shadow(0 ${1+S.lift*16}px ${1.5+S.lift*14}px rgba(60,40,20,${.2+S.lift*.15}))`;
+   const d=S.d*m*.8;
+   art.style.clipPath=d>.5?`polygon(${rx+d}px ${ry}px,${rx+rw}px ${ry}px,${rx+rw}px ${ry+rh}px,${rx}px ${ry+rh}px,${rx}px ${ry+d}px)`:`polygon(${rx}px ${ry}px,${rx+rw}px ${ry}px,${rx+rw}px ${ry+rh}px,${rx}px ${ry+rh}px)`;
+   flw.style.opacity=d>.5?1:0;flap.style.clipPath=`polygon(${d}px 0,${d}px ${d}px,0 ${d}px)`;
+   flap.style.background=`linear-gradient(135deg,#cfc7bb ${d*.707}px,#fff ${d*.98}px,#f1ebe2 ${d*1.414}px)`;
+   inn.style.transform=`scale(${1+S.sq*.04},${1-S.sq*.06})`}
+  addEventListener('resize',geo);(document.fonts&&document.fonts.ready||Promise.resolve()).then(geo);
+  if($('.hs-base',c).complete)geo();else $('.hs-base',c).addEventListener('load',geo);geo();
+  return{S,draw,cut,k}}
+ const pop=(tl,c,at)=>tl.to($('.hs-n',c),{scale:1,opacity:1,duration:.55,ease:'back.out(2.2)'},at).fromTo($('.hs-il',c),{y:10,opacity:0},{y:0,opacity:1,duration:.5,ease:'power2.out'},at+.08);
+ function peelStick(tl,c,st,at){const S=st.S,u=st.draw,f=fx(c);
+  tl.to(S,{d:1,duration:.95,ease:'power2.inOut',onUpdate:u},at)
+   .to(S,{lift:1,duration:.4,ease:'power2.out',onUpdate:u},at+.75)
+   .to(S,{f:1,duration:.95,ease:'power2.inOut',onUpdate:u},at+1.05)
+   .to(S,{d:0,duration:.6,ease:'power2.out',onUpdate:u},at+1.1)
+   .to(S,{lift:0,duration:.25,ease:'power2.in',onUpdate:u},at+1.75)
+   .to(S,{sq:1,duration:.1,ease:'power2.out',onUpdate:u},at+1.98)
+   .to(S,{sq:0,duration:.55,ease:'elastic.out(1.1,.4)',onUpdate:u},at+2.08)
+   .to(st.cut,{opacity:.35,duration:.4},at+1.3);
+  if(f)tl.set(f,{opacity:1,backgroundPosition:'100% 0'},at+2.1).to(f,{backgroundPosition:'0% 0',duration:.75,ease:'power1.inOut'},at+2.1).to(f,{opacity:0,duration:.25},at+2.7);
+  return tl}
+ const tls=[];
+ // 1 · choose a world
+ {const c=cards[0],tray=$('.hs-tray',c);tray.innerHTML=[['סופר','#bdd1c8'],['גלידה','#e1cdc8'],['בית','#f1e0b5']].map(([t,b])=>`<span class="hs-w" style="background:${b}"><i></i><b>✓</b>${t}</span>`).join('');
+  const w=$$('.hs-w',c),tl=G.timeline({paused:true});pop(tl,c,0);
+  tl.to(w,{scale:1,opacity:1,duration:.45,stagger:.12,ease:'back.out(2)'},.2)
+   .to(w[0],{scale:1.12,duration:.25,ease:'power2.out'},1.0).to($('i',w[0]),{opacity:1,scale:1,duration:.3,ease:'back.out(3)'},1.0)
+   .to($('b',w[0]),{scale:1,duration:.35,ease:'back.out(3)'},1.15).to(w.slice(1),{opacity:.45,scale:.92,duration:.3},1.05)
+   .to(w[0],{scale:1.06,duration:.3},1.3).fromTo($('.hs-hb',c),{y:0},{y:-8,duration:.18,yoyo:true,repeat:1,ease:'power1.out'},1.2);
+  tls.push(tl)}
+ // 2 · peel the lower sheet and stick it: half designed
+ {const c=cards[1],st=sticker(c,REG.bot),tl=G.timeline({paused:true});pop(tl,c,0);peelStick(tl,c,st,.35);tls.push(tl)}
+ // 3 · second sheet: fully designed
+ {const c=cards[2];layer(c,REG.bot);const st=sticker(c,REG.top),tl=G.timeline({paused:true});pop(tl,c,0);peelStick(tl,c,st,.35);
+  tl.to($$('.hs-pop img',c),{scale:1,duration:.5,stagger:.07,ease:'back.out(2.6)'},2.25).fromTo($('.hs-hb',c),{y:0},{y:-10,duration:.2,yoyo:true,repeat:1,ease:'power1.out'},2.3);tls.push(tl)}
+ window.HWT={tls,seek(t){let a=0;tls.forEach(tl=>{tl.time(Math.max(0,Math.min(tl.duration(),t-a)));a+=tl.duration()})},total:()=>tls.reduce((a,t)=>a+t.duration(),0)};
+ if(RM){tls.forEach(t=>t.progress(1));return}if(REC)return;
+ let q=Promise.resolve();const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const i=cards.indexOf(e.target.closest('.hs'));
+  q=q.then(()=>new Promise(r=>{tls[i].eventCallback('onComplete',r);tls[i].play()}))}),{threshold:.6});cards.forEach(c=>io.observe($('.hs-st',c)))};
 })();
