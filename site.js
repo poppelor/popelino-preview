@@ -6,13 +6,13 @@ const G=window.gsap,RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const W=typeof WORLDS!='undefined'?WORLDS:{},WO=typeof ORDER!='undefined'?ORDER:[];
 const HPRICE={home:149,market:169,ice:159,pizza:159,forest:149};
 const CATS={
- dollhouse:{name:'בית בובות',ikea:'FLISAT',thumb:'img/dollhouse.jpg',house:true,lead:'עולם שלם על בית הבובות של איקאה.',
+ dollhouse:{name:'בית בובות',ikea:'FLISAT',thumb:'assets/ikea/flisat-dollhouse.png',full:'בית בובות/מדף',house:true,lead:'עולם שלם על בית הבובות של איקאה.',
   designs:WO.map(k=>({id:'dh-'+k,w:k,name:W[k].tag,short:W[k].name,price:HPRICE[k]}))},
- shelf:{name:'כוננית',ikea:'TROFAST',thumb:'img/trofast-sage.jpg',lead:'מדבקות לקופסאות ולמסגרת של כוננית TROFAST.',
+ shelf:{name:'כוננית',ikea:'TROFAST',thumb:'assets/ikea/trofast.png',full:'יחידת אחסון עם קופסאות',lead:'מדבקות לקופסאות ולמסגרת של כוננית TROFAST.',
   designs:[['sage','מרווה'],['pink','ורוד'],['yellow','צהוב'],['blue','כחול'],['gingham','משבצות'],['floral','פרחוני'],['floral2','פרחוני עדין'],['red','פסים'],['beige','בז\''],['mix','צבעוני'],['mix2','פסטל']].map(([k,n])=>({id:'sh-'+k,img:'img/trofast-'+k+'.jpg',name:n,short:n,price:119}))},
- table:{name:'שולחן',ikea:'FLISAT',thumb:'img/table-road.jpg',lead:'שולחן הילדים הופך למגרש משחקים.',
+ table:{name:'שולחן',ikea:'FLISAT',thumb:'assets/ikea/flisat-table.png',full:'שולחן ילדים',lead:'שולחן הילדים הופך למגרש משחקים.',
   designs:[['road','כבישים'],['check','משבצות'],['leo','נמר']].map(([k,n])=>({id:'tb-'+k,img:'img/table-'+k+'.jpg',name:n,short:n,price:99}))},
- kitchen:{name:'מטבח',ikea:'DUKTIG',thumb:'img/pizzeria.jpg',lead:'המטבח הופך לחנות קטנה ואמיתית.',
+ kitchen:{name:'מטבח',ikea:'DUKTIG',thumb:'assets/ikea/duktig.png',full:'מטבח למשחק',lead:'המטבח הופך לחנות קטנה ואמיתית.',
   designs:[['pizzeria','פיצרייה','pizzeria.jpg'],['ice','גלידרייה','icecream.jpg'],['market','מכולת','hero-market.jpg']].map(([k,n,f])=>({id:'kt-'+k,img:'img/'+f,name:n,short:n,price:159}))}
 };
 const PACKS={
