@@ -1,0 +1,139 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Popelino · מדבקות לרהיטי ילדים</title><link rel="icon" href="assets/flower.svg">
+<link rel="stylesheet" href="final-hero.css">
+<style>
+@font-face{font-family:Playpen;src:url(fonts/PlaypenSansHebrew.woff2)}
+@font-face{font-family:Assistant;src:url(fonts/Assistant.woff2)}
+:root{--bg:#fbf9f5;--ink:#2b2a28;--mute:#77736c;--line:#ebe6dd;--acc:#d9745f;--card:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.65 Assistant,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:Playpen,sans-serif;font-weight:700;letter-spacing:-.01em;margin:0;line-height:1.1}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,249,245,.92);backdrop-filter:blur(10px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.nav img{height:40px}.nav .links{display:flex;gap:28px;align-items:center;font-weight:600}
+.cart{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center}
+.btn{display:inline-block;background:var(--ink);color:#fff;padding:15px 30px;border-radius:999px;font-weight:700;font-size:17px;border:0;cursor:pointer}
+.btn.acc{background:var(--acc)}.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+/* intro */
+.intro{padding:24px 0 0}.photo-hero{position:relative;border-radius:28px;overflow:hidden;height:min(78vh,720px)}
+.photo-hero img{width:100%;height:100%;object-fit:cover}
+.photo-hero .txt{position:absolute;inset:auto 0 0 0;padding:56px;background:linear-gradient(to top,rgba(0,0,0,.42),transparent);color:#fff}
+.photo-hero h1{font-size:clamp(48px,7.5vw,112px)}
+.photo-hero p{font-size:21px;margin:14px 0 26px;max-width:520px;opacity:.95}
+.photo-hero .btn{background:#fff;color:var(--ink)}
+section{padding:140px 0}
+.eb{display:block;font-size:14px;letter-spacing:.12em;color:var(--acc);font-weight:700;margin-bottom:14px}
+.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:56px;gap:24px}
+.head h2{font-size:clamp(36px,4.4vw,60px)}.head p{color:var(--mute);margin:12px 0 0;max-width:480px}
+.more{font-weight:700;border-bottom:1.5px solid;padding-bottom:2px;white-space:nowrap}
+/* dollhouse hero override */
+.dh{padding-top:140px}
+.dh .fhero{background:none!important;padding:0!important;min-height:0!important;max-width:none;margin:0;gap:80px;font-family:Assistant,sans-serif}
+.dh .fhero h1{display:none}.dh .fh-eb{display:none}
+.dh .fh-lead{display:none}
+.dh .fh-wb i{border:0!important;box-shadow:none!important}
+.dh .fh-btn{background:var(--ink)!important;border-radius:999px!important}
+.dh .fh-btn.gh{background:transparent!important;color:var(--ink)!important;border:1.5px solid var(--ink)!important}
+.dh .fh-pack{background:var(--card)!important;border:1px solid var(--line)!important;box-shadow:none!important;border-radius:22px!important}
+.dh .fh-prod{border-color:var(--line)!important}
+.dh-title h2{font-size:clamp(36px,4.4vw,60px);margin-bottom:12px}.dh-title p{color:var(--mute);margin:0 0 34px}
+/* shop */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.card .im{aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:#f1ede6}
+.card .im img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.card:hover .im img{transform:scale(1.04)}
+.card h3{font:700 19px Assistant,sans-serif;margin:16px 0 2px}.card span{color:var(--mute)}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.step .im{aspect-ratio:1/1;border-radius:22px;overflow:hidden}.step .im img{width:100%;height:100%;object-fit:cover}
+.step b{font:700 15px Playpen;color:var(--acc)}.step h3{font-size:26px;margin:16px 0 8px}.step p{color:var(--mute);margin:0}
+/* insta */
+.ig{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.ig img{aspect-ratio:1;object-fit:cover;border-radius:16px;width:100%}
+/* faq */
+.faq{max-width:820px}.faq details{border-top:1px solid var(--line);padding:26px 0}.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;font:600 22px Assistant;display:flex;justify-content:space-between}
+.faq summary::after{content:"+";font-weight:300;font-size:28px;line-height:1;transition:.3s}.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--mute);margin:12px 0 0}
+footer{border-top:1px solid var(--line);padding:48px 0;color:var(--mute);font-size:15px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center}footer img{height:30px}
+@media(max-width:820px){.wrap{padding:0 20px}section{padding:88px 0}.dh{padding-top:88px}
+.photo-hero{height:560px;border-radius:22px}.photo-hero .txt{padding:28px}.photo-hero p{font-size:18px}
+.grid{grid-template-columns:repeat(2,1fr);gap:16px}.steps{grid-template-columns:1fr;gap:40px}.ig{grid-template-columns:repeat(3,1fr);gap:6px}.ig img{border-radius:10px}
+.head{flex-direction:column;align-items:start;margin-bottom:36px}.dh .fhero{gap:32px}.faq summary{font-size:19px}footer .wrap{flex-direction:column;gap:14px}}
+.rv{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+.card,.step{transition:transform .4s cubic-bezier(.2,.7,.2,1)}.card:hover{transform:translateY(-6px)}.card .im{box-shadow:0 1px 0 rgba(0,0,0,.02);transition:box-shadow .4s}.card:hover .im{box-shadow:0 18px 40px -18px rgba(60,40,20,.28)}
+.ig img{transition:transform .5s,filter .5s}.ig img:hover{transform:scale(.98);filter:brightness(1.05)}
+.btn{transition:transform .25s,box-shadow .25s}.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(0,0,0,.35)}
+.photo-hero img{animation:kb 18s ease-out both}@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+.fh-house .layer{transition:opacity .7s ease!important}
+.dh .fhero{grid-template-columns:1fr 1.25fr!important;align-items:center}.dh .fstage{max-width:none!important;width:100%}@media(max-width:820px){.dh .fhero{grid-template-columns:1fr!important}}
+.dh.top{padding-top:48px}.dh-title .big{font-size:clamp(46px,6vw,92px)}
+.rev{overflow:hidden;display:block}.rev>span{display:inline-block}
+.steps{grid-template-columns:1fr}
+.stack{position:relative}.stack .step{position:sticky;top:120px;background:var(--bg);border:1px solid var(--line);border-radius:28px;padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;margin-bottom:28px;box-shadow:0 20px 50px -30px rgba(60,40,20,.35)}
+.stack .step .im{aspect-ratio:16/11;border-radius:20px}.stack .step p{max-width:420px}
+.card .im{clip-path:inset(0 round 22px)}.card .im img{transform:scale(1.12)}
+.ig img{clip-path:inset(0 round 16px);transform:scale(1.08)}
+.fan .card{transform-origin:bottom center}
+@media(max-width:820px){.stack .step{grid-template-columns:1fr;top:80px;padding:18px}}
+@media(prefers-reduced-motion:reduce){.photo-hero img,.btn,.card,.ig img{animation:none!important;transition:none!important}}
+</style></head><body>
+<header class="nav"><div class="wrap"><a href="#"><img src="assets/logo-transparent.png" alt="Popelino"></a>
+<div class="links"><a href="index.html#shop">חנות</a><a class="cart" href="#" aria-label="סל">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></a></div></div></header>
+
+
+<style>
+.cx{display:grid;grid-template-columns:1fr 1.25fr;gap:80px;align-items:center}
+.stage{position:relative;aspect-ratio:1/1;border-radius:28px;overflow:hidden;background:#f3efe8}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .7s ease}
+.ph{position:absolute;top:16px;inset-inline-start:16px;background:#fff;border-radius:999px;padding:4px 12px;font-size:13px;color:var(--mute);z-index:3}
+.dots{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 28px}
+.dot{border:0;background:none;cursor:pointer;font:600 14px Assistant;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:6px}
+.dot i{width:48px;height:48px;border-radius:50%;display:block;outline:2px solid transparent;outline-offset:3px;transition:.3s}
+.dot.on i{outline-color:var(--ink)}.dot.on{color:var(--ink)}
+.pc{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:14px}
+.pc b{font-size:22px}.pc small{color:var(--mute);display:block}.pc .bdg{font-size:12px;color:var(--acc);font-weight:700}
+.pc img{width:64px;height:64px;border-radius:14px;object-fit:cover}
+@media(max-width:820px){.cx{grid-template-columns:1fr;gap:28px}.stage{order:-1}}.btn{white-space:nowrap}.stack .step p{grid-column:1/-1}
+</style>
+<section class="dh top"><div class="wrap" id="hero"></div></section>
+<section style="padding-top:20px"><div class="wrap"><div class="head"><div><span class="eb">כל העיצובים</span><h2 id="gt"></h2></div></div><div class="grid fan" id="grid"></div></div></section>
+<footer><div class="wrap"><img src="assets/logo-transparent.png" alt="Popelino"><span>© 2026 Popelino · מדבקות לרהיטי ילדים</span></div></footer>
+<template id="fh"><section class="fhero" data-fhero style="padding:0">
+ <div class="fcopy"><div class="dh-title"><span class="eb">מדבקות פרימיום לרהיטי איקאה</span><h2 class="big">טאץ' קטן.<br>עולם חדש.</h2><p>בחרו עולם וראו אותו על בית הבובות.</p></div>
+  <span class="fh-eb"></span><h1></h1><p class="fh-lead"></p>
+  <span class="fh-label">בחרו עולם</span><div class="fh-worlds"></div>
+  <div class="fh-prod"><div><div class="fh-t"></div><div class="fh-p"></div></div><button class="fh-btn" data-addmain>הוסיפו לסל</button></div>
+  <div class="fh-packwrap"></div></div>
+ <div class="fstage"><div class="fh-house"><img src="assets/plain.webp" alt="בית בובות FLISAT"></div></div>
+</section></template>
+<script>
+const C={
+dollhouse:{name:'בית בובות FLISAT',title:'בית אחד.<br>הרבה עולמות.',grid:[['dollhouse.jpg','עולם בית',149],['dollhouse-plain.jpg','גרסה נקייה',129]]},
+shelf:{name:'כוננית TROFAST',title:'כוננית אחת.<br>אלף סיפורים.',d:[['trofast-sage.jpg','מרווה','#a9bfae'],['trofast-pink.jpg','ורוד','#e9b9b4'],['trofast-yellow.jpg','צהוב','#ecd38a'],['trofast-blue.jpg','כחול','#a9bdd3'],['trofast-gingham.jpg','משבצות','#d9cfc2'],['trofast-floral.jpg','פרחוני','#e6d6c8'],['trofast-red.jpg','פסים','#d98b80']],price:119},
+table:{name:'שולחן FLISAT',title:'שולחן פשוט.<br>מגרש משחקים.',d:[['table-road.jpg','כבישים','#b9b4aa'],['table-check.jpg','משבצות','#c9b9a3'],['table-leo.jpg','נמר','#d8b98e'],['table-plain.jpg','בלי מדבקה','#ece6dc']],price:99},
+kitchen:{name:'מטבח DUKTIG',title:'מטבח קטן.<br>עסק משגשג.',d:[['pizzeria.jpg','פיצרייה','#d98b80'],['icecream.jpg','גלידרייה','#e9c3cf'],['hero-market.jpg','מכולת','#a9bfae']],price:159,pack:{img:'wall-kit.jpg',name:'ערכת קיר "חנות"',price:49,only:['hero-market.jpg','pizzeria.jpg']}}};
+const k=new URLSearchParams(location.search).get('c')||'dollhouse',D=C[k]||C.dollhouse;document.title='Popelino · '+D.name;
+const hero=document.getElementById('hero');
+if(k=='dollhouse'){hero.appendChild(document.getElementById('fh').content.cloneNode(true));hero.querySelector('.dh-title').innerHTML=`<span class="eb">${D.name}</span><h2 class="big">${D.title}</h2><p>בחרו עולם וראו אותו על הבית.</p>`;
+ ['skins.js','final-hero.js'].reduce((p,f)=>p.then(()=>new Promise(r=>{const sc=document.createElement('script');sc.src=f;sc.onload=r;document.body.appendChild(sc)})),Promise.resolve());}
+else{hero.innerHTML=`<div class="cx"><div><span class="eb">${D.name}</span><h2 class="big" style="font-size:clamp(42px,5.4vw,84px);margin-bottom:14px">${D.title}</h2><p style="color:var(--mute);margin:0 0 30px">בחרו עיצוב וראו אותו על הרהיט.</p>
+<span style="font-size:14px;font-weight:700">בחרו עיצוב</span><div class="dots">${D.d.map((x,i)=>`<button class="dot" data-i="${i}"><i style="background:${x[2]}"></i>${x[1]}</button>`).join('')}</div>
+<div class="pc"><div><div style="font-weight:700" id="pn"></div><b>₪${D.price}</b> <small style="display:inline">מחיר לדוגמה</small></div><button class="btn">הוסיפו לסל</button></div><div id="pk"></div></div>
+<div class="stage" id="st"><span class="ph">תמונת הדמיה</span></div></div>`;
+ const st=document.getElementById('st');let cur=-1;
+ function show(i){if(i==cur)return;cur=i;const im=new Image();im.src='img/'+D.d[i][0];im.style.opacity=0;st.appendChild(im);requestAnimationFrame(()=>requestAnimationFrame(()=>im.style.opacity=1));const old=[...st.querySelectorAll('img')].slice(0,-1);setTimeout(()=>old.forEach(o=>o.remove()),750);
+  document.querySelectorAll('.dot').forEach(b=>b.classList.toggle('on',+b.dataset.i==i));document.getElementById('pn').textContent=D.name+' · '+D.d[i][1];
+  const P=D.pack,pk=document.getElementById('pk');pk.innerHTML=P&&P.only.includes(D.d[i][0])?`<div class="pc"><img src="img/${P.img}"><div style="flex:1"><span class="bdg">ערכת אביזרים · נמכרת בנפרד</span><div style="font-weight:700">${P.name}</div><b style="font-size:18px">₪${P.price}</b></div><button class="btn ghost">+ הוסיפו</button></div>`:'';}
+ document.querySelectorAll('.dot').forEach(b=>b.onclick=()=>show(+b.dataset.i));show(0);
+ D.grid=D.d.map(x=>[x[0],x[1],D.price]);}
+document.getElementById('gt').textContent=D.name;
+document.getElementById('grid').innerHTML=D.grid.map(x=>`<a class="card" href="#"><div class="im"><img src="img/${x[0]}"></div><h3>${x[1]}</h3><span>₪${x[2]}</span></a>`).join('');
+window.POPFX&&window.POPFX();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="fx.js"></script><script src="menu.js"></script></body></html>
