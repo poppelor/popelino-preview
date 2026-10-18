@@ -4,8 +4,8 @@
 <main class="split">
 <div class="arch"><div class="crumb"><a href="index.html">דף הבית</a> / <a href="index.html#shop">חנות</a> / <span id="cn"></span></div>
 <div class="cat-h"><div><h1 id="ct"></h1><p id="cl"></p></div></div>
-<div class="chips" id="chips"></div><p class="count" id="cnt"></p><div class="grid pgrid" id="grid"></div></div>
-<aside class="side" aria-label="תצוגה גדולה של המוצר"><span class="sheet-grab"></span><button class="icon-btn sheet-x" aria-label="סגירה">✕</button><span class="hov-hint">רחפו על מוצר כדי לראות אותו כאן</span><div id="sst"></div><div id="sctl"></div></aside>
+<p class="count" id="cnt"></p><div class="grid pgrid" id="grid"></div></div>
+<aside class="side" aria-label="תצוגה גדולה של המוצר"><span class="sheet-grab"></span><button class="icon-btn sheet-x" aria-label="סגירה">✕</button><div id="sst"></div><div id="sctl"></div></aside>
 <button class="btn acc try-fab">✨ נסו על הרהיט</button></main><div class="sheet-scrim"></div>
 <footer><div class="wrap"><a href="index.html"><img src="assets/logo-transparent.png" alt="Popelino"></a><nav><a href="index.html">דף הבית</a><a href="category.html?c=dollhouse">בית בובות</a><a href="category.html?c=shelf">כוננית</a><a href="category.html?c=table">שולחן</a><a href="category.html?c=kitchen">מטבח</a></nav><span>© 2026 Popelino · מחירים ותמונות לדוגמה</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -18,22 +18,19 @@ const packs=[...new Set(Object.values(P.PACKS).map(p=>p.id))].map(id=>P.ALL[id])
 const items=[...C.designs,...packs];
 const TINT={dollhouse:'var(--blush)',shelf:'var(--sage)',table:'var(--butter)',kitchen:'var(--sky)'},TC=['var(--sage)','var(--blush)','var(--butter)','var(--sky)'];
 document.querySelector('.side').style.setProperty('--t',TINT[c]);
-const T=TryOn(document.getElementById('sctl'),{stageEl:document.getElementById('sst'),cat:c,title:true,compact:true,cut:true,onDesign:d=>document.querySelectorAll('.pcard').forEach(e=>e.classList.toggle('on',e.dataset.id==d.id))});
+const T=TryOn(document.getElementById('sctl'),{stageEl:document.getElementById('sst'),cat:c,title:true,compact:true,cut:true,fade:160,packLbl:'השלימו עם ערכת האביזרים',onDesign:d=>document.querySelectorAll('.pcard').forEach(e=>e.classList.toggle('on',e.dataset.id==d.id))});
 const card=(d,i)=>{const C=P.CATS[d.cat],im=d.pack?P.packThumb(d):d.w?P.houseSVG(d.w):d.cut?`<img class="c" src="${d.cut}" alt="${d.name}" loading="lazy">`:`<img class="ph" src="${d.img}" alt="${d.name}" loading="lazy">`;
  return `<article class="pcard rv${d.pack?' pk':''}${T.des&&T.des.id==d.id?' on':''}" data-id="${d.id}" style="--t:${TC[i%4]}"><div class="im" data-try="${d.id}">${d.pack?'<span class="tag">ערכת אביזרים · נמכרת בנפרד</span>':''}${im}</div><div class="bd"><div><h3>${d.pack?d.name:C.name+' · '+d.name}</h3><span class="meta">${d.pack?'ערכת אביזרים':C.ikea}</span></div><b>₪${d.price}</b></div><button class="add" data-add="${d.id}">+ הוסיפו לסל</button></article>`};
+C.designs.forEach(d=>{if(d.ov)new Image().src=d.ov});new Image().src=C.thumb;
 let f='all';
 function draw(){const list=f=='all'?items:f=='packs'?packs:items.filter(d=>d.id==f);
  document.getElementById('grid').innerHTML=list.map(card).join('');document.getElementById('cnt').textContent=list.length+' מוצרים';
- document.querySelectorAll('.chip').forEach(b=>b.classList.toggle('on',b.dataset.f==f));
  document.querySelectorAll('#grid .pcard:not(.pk)').forEach(el=>{el.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover) and (min-width:821px)').matches)T.setDesign(el.dataset.id)})});
  document.querySelectorAll('#grid [data-try]').forEach(el=>el.onclick=()=>{const d=P.ALL[el.dataset.try];if(!d.pack){T.setDesign(d.id);if(innerWidth<=820)sheet(true)}});
  P.reveal()}
-document.getElementById('chips').innerHTML=`<button class="chip all" data-f="all">הכל</button>`+C.designs.map(d=>`<button class="chip" data-f="${d.id}">${P.swatch(d)}${d.short}</button>`).join('')+(packs.length?`<button class="chip all" data-f="packs">ערכות אביזרים</button>`:'');
 const side=document.querySelector('.side'),scr=document.querySelector('.sheet-scrim');
 function sheet(o){side.classList.toggle('open',o);scr.classList.toggle('on',o)}
 document.querySelector('.try-fab').onclick=()=>sheet(true);document.querySelector('.sheet-x').onclick=()=>sheet(false);scr.onclick=()=>sheet(false);
 addEventListener('keydown',e=>{if(e.key=='Escape')sheet(false)});
-const ch=document.getElementById('chips'),nc=ch.children.length-6;if(nc>0){ch.insertAdjacentHTML('beforeend',`<button class="chip more-c" data-more>+ עוד ${nc}</button>`);}
-document.querySelectorAll('.chip').forEach(b=>b.onclick=b.dataset.more!==undefined?()=>ch.classList.add('exp'):()=>{f=b.dataset.f;if(f!='all'&&f!='packs')T.setDesign(f);draw()});
 draw();
 </script></body></html>
