@@ -517,3 +517,13 @@ section.hw3{padding:0;position:relative}
  .bx.wide.ftt .ftx{width:40%;left:auto}.bx.wide.ftt .ft{font-size:18px}.bx.wide.ftt .go{top:10px}
  .bx.pk.ftt .pkx{inset:-26px 10% 84px 10%}
 }
+/* home tiles v7: wide tiles pop out like the tall ones; text on the plain bottom band */
+.bx.wide.ftt img.co{--tb:86px;--pop:70px;left:50%;max-width:84%}
+.bx.wide.ftt .ftx{left:62px;right:22px;width:auto;top:auto;bottom:16px;transform:none}
+.bx.wide.ftt .go{top:auto;bottom:16px}
+.bx.pk.ftt .pkx{inset:-70px 14% 104px 14%}
+@media(max-width:820px){
+ .bx.wide.ftt img.co{--tb:66px;--pop:44px;left:50%;max-width:86%}
+ .bx.wide.ftt .ftx{left:44px;right:12px;bottom:12px}.bx.wide.ftt .go{top:auto;bottom:12px}
+ .bx.pk.ftt .pkx{inset:-44px 8% 84px 8%}
+}
