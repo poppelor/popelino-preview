@@ -23,10 +23,10 @@ Object.entries(COL).forEach(([c,a])=>F[c].items.forEach((it,i)=>it.color=a[i]));
 const ORDER=['dollhouse','shelf','table','kitchen'];
 /* loose organic placements: different sizes + irregular distances (not a geometric orbit) */
 const POS={
- dollhouse:{l:80,t:12,s:104},
- shelf:{l:7,t:40,s:90},
- table:{l:8,t:78,s:102},
- kitchen:{l:93,t:58,s:72}
+ dollhouse:{l:90,t:3,s:96},
+ shelf:{l:3,t:30,s:78},
+ table:{l:5,t:93,s:90},
+ kitchen:{l:97,t:66,s:66}
 };
 /* preload */
 const srcs=new Set(['assets/home.webp',...Object.values(F).flatMap(f=>[f.base,...f.items.map(i=>i.img).filter(Boolean)])]);
@@ -50,17 +50,6 @@ addEventListener('resize',()=>{const p=$('.h4p',piece);if(!p)return;fit(p,+p.dat
 function build(k){const f=F[k],el=document.createElement('div');el.className='h4p';el.dataset.f=k;
  el.innerHTML=`<img class="bs" src="${f.base}" alt="${f.name} ${f.ikea} של איקאה">${k=='dollhouse'?'<div class="ov"></div>':''}`;
  const gs=document.createElement('div');gs.className='gs';el.appendChild(gs);piece.appendChild(el);fit(el,f.ar);return el}
-/* ---- confetti from logo shapes (GSAP driven so it records deterministically) ---- */
-const SH=['assets/deco/flower-pink.svg','assets/deco/flower-sage.svg','assets/deco/drop-lilac.svg','assets/deco/dot-pink.svg','assets/deco/dot-sage.svg'];
-let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
-function burst(n){if(RM)return;const r=pc.getBoundingClientRect(),m=innerWidth<860;
- for(let i=0;i<n;i++){const im=document.createElement('img');im.src=SH[i%SH.length];im.className='h4-fx';im.alt='';const s=(m?16:24)*(.6+rnd()*.8);
-  im.style.width=im.style.height=s+'px';document.body.appendChild(im);
-  const x0=r.left+r.width*(.25+rnd()*.5),y0=r.top+r.height*(.35+rnd()*.3),a=-Math.PI/2+(rnd()-.5)*2.4,v=(m?90:150)*(.6+rnd()*.7);
-  G.set(im,{x:x0-s/2,y:y0-s/2,scale:0,rotation:rnd()*360});
-  G.timeline({onComplete:()=>im.remove()}).to(im,{scale:1,duration:.25,ease:'back.out(3)'},0)
-   .to(im,{x:x0-s/2+Math.cos(a)*v,duration:1.1,ease:'power2.out'},0).to(im,{y:y0-s/2+Math.sin(a)*v,duration:.5,ease:'power2.out'},0)
-   .to(im,{y:'+='+(v*.9),duration:.6,ease:'power2.in'},.5).to(im,{rotation:'+='+(rnd()*240-120),duration:1.1},0).to(im,{opacity:0,duration:.3},.8)}}
 /* ---- world circles ---- */
 function wcHTML(k,it){const f=F[k],plain=!it;
  const inner=plain?`<img src="${f.base}" alt="">`:(it.w?P.houseSVG(it.w):`<img src="${it.img}" alt="">`);
@@ -80,7 +69,7 @@ function caption(){const f=F[cur],d=des&&ALL[des.id];$('#capn').textContent=f.na
 /* ---- dress the piece ---- */
 function setWorld(id){const f=F[cur],it=id?f.items.find(i=>i.id==id):null;if((des&&des.id)==(it&&it.id))return;des=it;mark();caption();
  if(cur=='dollhouse'){const ov=$('.ov',pc);ov.innerHTML='';if(it){const L=skinEl(it.w);ov.appendChild(L.firstChild?L:L);const sv=$('svg',ov);sv&&sv.setAttribute('preserveAspectRatio','xMidYMid meet')}
-  if(!RM)G.fromTo(pc,{scaleX:1.035,scaleY:.965},{scaleX:1,scaleY:1,duration:.55,ease:'elastic.out(1.1,.45)'});if(it)burst(14);return}
+  if(!RM)G.fromTo(pc,{scaleX:1.035,scaleY:.965},{scaleX:1,scaleY:1,duration:.55,ease:'elastic.out(1.1,.45)'});return}
  /* shelf / table / kitchen: quick clean crossfade to the full designed product cut-out */
  const bs=$('.bs',pc),olds=$$('.ds',pc);let nw=null;
  if(it){nw=new Image();nw.className='ds';nw.alt=f.name+' · '+it.n;nw.dataset.id=it.id;nw.src=it.img;pc.insertBefore(nw,$('.gs',pc));placeDesign(nw,it,pc)}
@@ -88,7 +77,7 @@ function setWorld(id){const f=F[cur],it=id?f.items.find(i=>i.id==id):null;if((de
  G.to(olds,{opacity:0,duration:D,ease:'power1.out',onComplete:()=>olds.forEach(o=>o.remove())});
  G.to(bs,{opacity:it?0:1,duration:D,ease:'power1.out'});
  if(nw)G.fromTo(nw,{opacity:0,scale:.985},{opacity:1,scale:1,duration:D,ease:'power1.out'});
- if(!RM)G.fromTo(pc,{y:0},{y:-6,duration:.14,yoyo:true,repeat:1,ease:'power1.out'});if(it)burst(10)}
+ if(!RM)G.fromTo(pc,{y:0},{y:-6,duration:.14,yoyo:true,repeat:1,ease:'power1.out'});}
 /* ---- switch furniture: old one shrinks back toward its circle, new one grows out of the clicked circle ---- */
 function setFurn(k,instant){if(k==cur||busy)return;const from=$(`.fc[data-f="${k}"]`,furn),prev=cur,oldPc=pc;cur=k;des=null;
  fcs.forEach(b=>{const on=b.dataset.f==k;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});

@@ -43,17 +43,20 @@ body.h4b{background:var(--gray-b)}
 .h4-cap{position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;border-radius:999px;padding:6px 16px;font:600 14px Assistant;color:#5d5a55;box-shadow:0 10px 24px -16px rgba(60,40,20,.5);z-index:3}
 .h4-cap b{font:700 14px Playpen;color:var(--ink)}
 .h4-cap span:before{content:"·";margin-inline-end:8px;color:var(--coral)}
-/* loose organic furniture circles — sizes/positions set inline via --fc, left, top */
+/* loose organic furniture circles — sizes/positions set inline via --fc, left, top; each has its own brand-color ring */
 .h4-furn{position:absolute;inset:0;pointer-events:none}
-.fc{--fc:94px;position:absolute;width:var(--fc);margin:calc(var(--fc) / -2) 0 0 calc(var(--fc) / -2);border:0;background:none;padding:0;cursor:pointer;pointer-events:auto;display:flex;flex-direction:column;align-items:center;-webkit-tap-highlight-color:transparent;z-index:4}
-.fc-i{position:relative;width:var(--fc);height:var(--fc);border-radius:50%;background:#fff;box-shadow:0 14px 28px -16px rgba(60,40,20,.55);display:grid;place-items:center;transition:box-shadow .25s}
+.fc{--fc:94px;--ring:var(--sage-b);position:absolute;width:var(--fc);margin:calc(var(--fc) / -2) 0 0 calc(var(--fc) / -2);border:0;background:none;padding:0;cursor:pointer;pointer-events:auto;display:flex;flex-direction:column;align-items:center;-webkit-tap-highlight-color:transparent;z-index:4}
+.fc[data-f="dollhouse"]{--ring:var(--sage-b)}
+.fc[data-f="shelf"]{--ring:var(--blush-b)}
+.fc[data-f="table"]{--ring:var(--butter-b)}
+.fc[data-f="kitchen"]{--ring:var(--lilac-b)}
+.fc-i{position:relative;width:var(--fc);height:var(--fc);border-radius:50%;background:#fff;box-shadow:0 0 0 3.5px var(--ring),0 14px 28px -16px rgba(60,40,20,.55);display:grid;place-items:center;transition:box-shadow .25s}
 .fc-i img{width:72%;height:72%;object-fit:contain}
 .fc-l{position:absolute;top:calc(100% + 6px);font:700 13px Assistant;background:rgba(255,255,255,.92);border-radius:999px;padding:2px 10px;white-space:nowrap;color:#5d5a55}
-.fc.on .fc-i{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--coral),0 14px 28px -16px rgba(60,40,20,.55)}
+.fc.on .fc-i{box-shadow:0 0 0 4px var(--ring),0 0 0 8px color-mix(in srgb,var(--ring) 55%,transparent),0 14px 28px -16px rgba(60,40,20,.55)}
 .fc.on .fc-l{background:var(--coral);color:#fff}
-.fc:hover .fc-i{box-shadow:0 0 0 3px #fff,0 0 0 5px rgba(217,116,95,.45),0 14px 28px -16px rgba(60,40,20,.55)}
-.fc.on:hover .fc-i{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--coral),0 14px 28px -16px rgba(60,40,20,.55)}
-.h4-fx{position:fixed;left:0;top:0;pointer-events:none;z-index:60;will-change:transform}
+.fc:hover .fc-i{box-shadow:0 0 0 4px var(--ring),0 0 0 7px color-mix(in srgb,var(--ring) 45%,transparent),0 14px 28px -16px rgba(60,40,20,.55)}
+.fc.on:hover .fc-i{box-shadow:0 0 0 4px var(--ring),0 0 0 8px color-mix(in srgb,var(--ring) 55%,transparent),0 14px 28px -16px rgba(60,40,20,.55)}
 @media(max-width:1100px){.h4-stage{--S:min(560px,calc(100vh - 130px))}.h4-in{gap:20px}}
 @media(max-width:860px){
  .h4{min-height:0;padding:0 0 36px;display:block}
@@ -66,11 +69,11 @@ body.h4b{background:var(--gray-b)}
  .h4-worlds{gap:12px 8px;min-height:0}
  .wc{width:calc((100% - 24px) / 4);font-size:13px}
  .wc-i{width:60px;height:60px}
- /* keep loose feel on mobile, but inset so no horizontal scroll */
- .fc[data-f="dollhouse"]{--fc:70px!important;left:82%!important;top:12%!important}
- .fc[data-f="shelf"]{--fc:56px!important;left:10%!important;top:38%!important}
- .fc[data-f="table"]{--fc:66px!important;left:20%!important;top:86%!important}
- .fc[data-f="kitchen"]{--fc:52px!important;left:90%!important;top:56%!important}
+ /* keep loose feel on mobile, farther from furniture, inset so no horizontal scroll */
+ .fc[data-f="dollhouse"]{--fc:60px!important;left:91%!important;top:4%!important}
+ .fc[data-f="shelf"]{--fc:46px!important;left:5%!important;top:28%!important}
+ .fc[data-f="table"]{--fc:52px!important;left:7%!important;top:96%!important}
+ .fc[data-f="kitchen"]{--fc:44px!important;left:96%!important;top:66%!important}
  .fc-l{font-size:11px;padding:1px 7px;top:calc(100% + 3px)}
  .h4-cap{font-size:12.5px;padding:4px 12px;bottom:7%}.h4-cap b{font-size:12.5px}
  .h4-dc{transform:scale(.7);opacity:.6}
