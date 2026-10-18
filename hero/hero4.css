@@ -1,4 +1,4 @@
-/* Hero 4 · big furniture + orbiting furniture circles + world circles */
+/* Hero 4 · big furniture floating + loose furniture circles + world circles */
 :root{--sage-b:#bdd1c8;--blush-b:#e1cdc8;--lilac-b:#c7bcce;--butter-b:#f1e0b5;--coral:#d9745f;--gray-b:#f3f2ef}
 html,body{overflow-x:clip}
 body.h4b{background:var(--gray-b)}
@@ -32,20 +32,18 @@ body.h4b{background:var(--gray-b)}
 .wc.on .wc-k{transform:scale(1)}
 .wc-p .wc-i{background:#fff}
 .wc-p .wc-i img{filter:saturate(.9)}
-/* stage (left column) */
+/* stage (left column) — furniture floats on page bg, no pastel disc */
 .h4-stage{--S:min(680px,calc(100vh - 130px));position:relative;width:var(--S);height:var(--S);flex:none}
-.h4-disc{position:absolute;inset:8%;border-radius:50%;background:var(--blush-b)}
-.h4-disc:after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.55),rgba(255,255,255,0) 62%)}
-.h4-orbit{position:absolute;inset:3.2%;width:93.6%;height:93.6%;pointer-events:none;opacity:.55}
-.h4-piece{position:absolute;left:18%;right:18%;top:13.5%;bottom:17.5%}
+.h4-piece{position:absolute;left:16%;right:16%;top:12%;bottom:16%}
 .h4-piece .h4p{position:absolute;left:50%;bottom:0;transform-origin:50% 100%}
 .h4-piece .h4p>img.bs,.h4-piece .h4p>.ov{position:absolute;inset:0;width:100%;height:100%}
 .h4-piece .h4p>.ov svg{width:100%;height:100%;display:block}
 .h4-piece .h4p .ds{position:absolute;max-width:none;opacity:0}
 .h4-piece .gs{position:absolute;left:50%;bottom:-3%;width:86%;height:7%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(70,50,30,.22),rgba(70,50,30,0));pointer-events:none}
-.h4-cap{position:absolute;left:50%;bottom:6.5%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;border-radius:999px;padding:6px 16px;font:600 14px Assistant;color:#5d5a55;box-shadow:0 10px 24px -16px rgba(60,40,20,.5);z-index:3}
+.h4-cap{position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;border-radius:999px;padding:6px 16px;font:600 14px Assistant;color:#5d5a55;box-shadow:0 10px 24px -16px rgba(60,40,20,.5);z-index:3}
 .h4-cap b{font:700 14px Playpen;color:var(--ink)}
 .h4-cap span:before{content:"·";margin-inline-end:8px;color:var(--coral)}
+/* loose organic furniture circles — sizes/positions set inline via --fc, left, top */
 .h4-furn{position:absolute;inset:0;pointer-events:none}
 .fc{--fc:94px;position:absolute;width:var(--fc);margin:calc(var(--fc) / -2) 0 0 calc(var(--fc) / -2);border:0;background:none;padding:0;cursor:pointer;pointer-events:auto;display:flex;flex-direction:column;align-items:center;-webkit-tap-highlight-color:transparent;z-index:4}
 .fc-i{position:relative;width:var(--fc);height:var(--fc);border-radius:50%;background:#fff;box-shadow:0 14px 28px -16px rgba(60,40,20,.55);display:grid;place-items:center;transition:box-shadow .25s}
@@ -60,7 +58,7 @@ body.h4b{background:var(--gray-b)}
 @media(max-width:860px){
  .h4{min-height:0;padding:0 0 36px;display:block}
  .h4-in{grid-template-columns:1fr;gap:6px;padding:0 18px}
- .h4-stage{--S:min(calc(100vw - 24px),460px);order:-1;margin:0 auto}
+ .h4-stage{--S:min(calc(100vw - 36px),460px);order:-1;margin:0 auto}
  .h4-copy{max-width:none}
  .h4-t{font-size:46px}
  .h4-lead{font-size:16px;margin:10px 0 16px}
@@ -68,8 +66,13 @@ body.h4b{background:var(--gray-b)}
  .h4-worlds{gap:12px 8px;min-height:0}
  .wc{width:calc((100% - 24px) / 4);font-size:13px}
  .wc-i{width:60px;height:60px}
- .fc{--fc:64px}.fc-l{font-size:12px;padding:1px 8px;top:calc(100% + 4px)}
- .h4-cap{font-size:12.5px;padding:4px 12px;bottom:8%}.h4-cap b{font-size:12.5px}
+ /* keep loose feel on mobile, but inset so no horizontal scroll */
+ .fc[data-f="dollhouse"]{--fc:70px!important;left:82%!important;top:12%!important}
+ .fc[data-f="shelf"]{--fc:56px!important;left:10%!important;top:38%!important}
+ .fc[data-f="table"]{--fc:66px!important;left:20%!important;top:86%!important}
+ .fc[data-f="kitchen"]{--fc:52px!important;left:90%!important;top:56%!important}
+ .fc-l{font-size:11px;padding:1px 7px;top:calc(100% + 3px)}
+ .h4-cap{font-size:12.5px;padding:4px 12px;bottom:7%}.h4-cap b{font-size:12.5px}
  .h4-dc{transform:scale(.7);opacity:.6}
 }
 @media(prefers-reduced-motion:reduce){.wc-i,.fc-i,.h4-cta span{transition:none}}

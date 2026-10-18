@@ -1,4 +1,4 @@
-/* Hero 4 · one big furniture piece, plain IKEA siblings orbiting it, world circles that match it */
+/* Hero 4 · one big furniture piece floating, loose plain IKEA siblings around it, world circles that match it */
 (function(){
 const G=gsap,$=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches,REC=/[?&]rec=1/.test(location.search);
@@ -7,29 +7,39 @@ const P=window.POP,ALL=P.ALL;
 const mix=(h,t)=>{const a=parseInt(h.slice(1),16),c=s=>Math.round(((a>>s)&255)*(1-t)+255*t);return `rgb(${c(16)},${c(8)},${c(0)})`};
 /* fit = design cut-out placement relative to the plain base box: w = width fraction, x/y = shift (fractions of box) */
 const F={
- dollhouse:{name:'בית בובות',ikea:'FLISAT',base:'assets/plain.webp',ar:1312/1199,disc:'#e1cdc8',lbl:'בחרו עולם לבית הבובות',
+ dollhouse:{name:'בית בובות',ikea:'FLISAT',base:'assets/plain.webp',ar:1312/1199,lbl:'בחרו עולם לבית הבובות',
   items:[['market','סופר'],['ice','גלידה'],['pizza','פיצריה'],['forest','יער'],['home','בית']].map(([k,n])=>({id:'dh-'+k,w:k,n,color:WORLDS[k].color}))},
- shelf:{name:'כוננית',ikea:'TROFAST',base:'assets/ikea/trofast.png',ar:1059/737,disc:'#bdd1c8',lbl:'בחרו עיצוב לכוננית',
+ shelf:{name:'כוננית',ikea:'TROFAST',base:'assets/ikea/trofast.png',ar:1059/737,lbl:'בחרו עיצוב לכוננית',
   items:[['sage','מרווה'],['pink','ורוד'],['floral','פרחוני'],['gingham','משבצות'],['mix','צבעוני']].map(([k,n])=>({id:'sh-'+k,img:'assets/cut/trofast-'+k+'.png',n}))},
- table:{name:'שולחן',ikea:'FLISAT',base:'assets/ikea/flisat-table.png',ar:1056/752,disc:'#f1e0b5',lbl:'בחרו עיצוב לשולחן',
+ table:{name:'שולחן',ikea:'FLISAT',base:'assets/ikea/flisat-table.png',ar:1056/752,lbl:'בחרו עיצוב לשולחן',
   items:[['road','כבישים'],['check','משבצות']].map(([k,n])=>({id:'tb-'+k,img:'assets/cut/table-'+k+'.png',n}))},
- kitchen:{name:'מטבח',ikea:'DUKTIG',base:'assets/ikea/duktig.png',ar:737/1058,disc:'#c7bcce',lbl:'בחרו עולם למטבח',
+ kitchen:{name:'מטבח',ikea:'DUKTIG',base:'assets/ikea/duktig.png',ar:737/1058,lbl:'בחרו עולם למטבח',
   items:[['pizzeria','פיצריה','pizzeria'],['ice','גלידה','icecream'],['market','סופר','hero-market']].map(([k,n,f])=>({id:'kt-'+k,img:'assets/cut/'+f+'.png',n}))}
 };
 const FIT={'sh-sage':{w:.97,y:.02},'sh-pink':{w:.97,y:.02},'sh-blue':{w:.97,y:.02},'sh-floral':{w:.96,y:.02},'sh-gingham':{w:.9,y:.02},'sh-mix':{w:.93,y:.02},
  'tb-road':{w:.86,y:.0},'tb-check':{w:.84,y:.0},'kt-pizzeria':{w:1.0,y:0},'kt-ice':{w:.88,y:0},'kt-market':{w:1.2,x:-.08,y:0}};
 const COL={shelf:['#bdd1c8','#e1cdc8','#f1e0b5','#c7bcce','#f3d6d8'],table:['#f1e0b5','#bdd1c8'],kitchen:['#f1e0b5','#f3d6d8','#bdd1c8']};
 Object.entries(COL).forEach(([c,a])=>F[c].items.forEach((it,i)=>it.color=a[i]));
-const ORDER=['dollhouse','shelf','table','kitchen'],ANG={dollhouse:-32,shelf:-148,table:148,kitchen:32};
+const ORDER=['dollhouse','shelf','table','kitchen'];
+/* loose organic placements: different sizes + irregular distances (not a geometric orbit) */
+const POS={
+ dollhouse:{l:80,t:12,s:104},
+ shelf:{l:7,t:40,s:90},
+ table:{l:8,t:78,s:102},
+ kitchen:{l:93,t:58,s:72}
+};
 /* preload */
 const srcs=new Set(['assets/home.webp',...Object.values(F).flatMap(f=>[f.base,...f.items.map(i=>i.img).filter(Boolean)])]);
 const ready=Promise.all([...srcs].map(s=>new Promise(r=>{const i=new Image();i.onload=i.onerror=r;i.src=s})));
-const stage=$('#stage'),piece=$('#piece'),disc=$('#disc'),furn=$('#furn'),worlds=$('#worlds');
+const stage=$('#stage'),piece=$('#piece'),furn=$('#furn'),worlds=$('#worlds');
 let cur=null,des=null,pc=null,busy=false,touched=false;
 /* ---- furniture circles around the stage ---- */
-furn.innerHTML=ORDER.map(k=>{const a=ANG[k]*Math.PI/180,r=43.2;return `<button class="fc" data-f="${k}" role="radio" aria-label="${F[k].name} ${F[k].ikea}" style="left:${50+r*Math.cos(a)}%;top:${50+r*Math.sin(a)}%"><span class="fc-i"><img src="${F[k].base}" alt=""></span><span class="fc-l">${F[k].name}</span></button>`}).join('');
+furn.innerHTML=ORDER.map(k=>{const p=POS[k];return `<button class="fc" data-f="${k}" role="radio" aria-label="${F[k].name} ${F[k].ikea}" style="left:${p.l}%;top:${p.t}%;--fc:${p.s}px"><span class="fc-i"><img src="${F[k].base}" alt=""></span><span class="fc-l">${F[k].name}</span></button>`}).join('');
 const fcs=$$('.fc',furn);
-if(!RM)fcs.forEach((b,i)=>G.to($('.fc-i',b),{y:-6,duration:1.6+i*.23,ease:'sine.inOut',yoyo:true,repeat:-1,delay:i*.3}));
+if(!RM){
+  const bob=[{y:-7,d:1.9,dl:.05},{y:-5,d:2.35,dl:.55},{y:-9,d:1.55,dl:.2},{y:-4,d:2.7,dl:.9}];
+  fcs.forEach((b,i)=>{const o=bob[i];G.to($('.fc-i',b),{y:o.y,duration:o.d,ease:'sine.inOut',yoyo:true,repeat:-1,delay:o.dl})});
+}
 /* ---- sizing ---- */
 function fit(el,ar){const W=piece.clientWidth,H=piece.clientHeight;let w=W,h=W/ar;if(h>H){h=H;w=H*ar}
  el.style.width=w+'px';el.style.height=h+'px';el.style.marginLeft=-w/2+'px';el.dataset.ar=ar}
@@ -67,10 +77,8 @@ function mark(){$$('.wc',worlds).forEach(b=>{const on=(b.dataset.id||null)==(des
 function caption(){const f=F[cur],d=des&&ALL[des.id];$('#capn').textContent=f.name+' '+f.ikea;
  $('#capw').textContent=des?(des.n+(d?` · ₪${d.price}`:'')):'כמו שהגיע מאיקאה';
  $('#cta').href='category.html?c='+cur}
-function discTo(c){G.to(disc,{backgroundColor:c,duration:RM?0:.5,ease:'power2.out'})}
 /* ---- dress the piece ---- */
 function setWorld(id){const f=F[cur],it=id?f.items.find(i=>i.id==id):null;if((des&&des.id)==(it&&it.id))return;des=it;mark();caption();
- discTo(it?mix(it.color,.0):f.disc);
  if(cur=='dollhouse'){const ov=$('.ov',pc);ov.innerHTML='';if(it){const L=skinEl(it.w);ov.appendChild(L.firstChild?L:L);const sv=$('svg',ov);sv&&sv.setAttribute('preserveAspectRatio','xMidYMid meet')}
   if(!RM)G.fromTo(pc,{scaleX:1.035,scaleY:.965},{scaleX:1,scaleY:1,duration:.55,ease:'elastic.out(1.1,.45)'});if(it)burst(14);return}
  /* shelf / table / kitchen: quick clean crossfade to the full designed product cut-out */
@@ -84,7 +92,7 @@ function setWorld(id){const f=F[cur],it=id?f.items.find(i=>i.id==id):null;if((de
 /* ---- switch furniture: old one shrinks back toward its circle, new one grows out of the clicked circle ---- */
 function setFurn(k,instant){if(k==cur||busy)return;const from=$(`.fc[data-f="${k}"]`,furn),prev=cur,oldPc=pc;cur=k;des=null;
  fcs.forEach(b=>{const on=b.dataset.f==k;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
- pc=build(k);caption();renderWorlds(k,!instant);discTo(F[k].disc);
+ pc=build(k);caption();renderWorlds(k,!instant);
  if(instant||RM){oldPc&&oldPc.remove();return}
  busy=true;
  if(oldPc){const to=$(`.fc[data-f="${prev}"] .fc-i`,furn).getBoundingClientRect(),r=oldPc.getBoundingClientRect();
