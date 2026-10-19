@@ -17,9 +17,9 @@ body.h4b{background:var(--gray-b)}
 .h4-cta{padding:14px 30px;font-size:17px;transition:box-shadow .2s,background .2s}.h4-cta:hover{transform:none}
 .h4-cta span{display:inline-block;transition:transform .25s}.h4-cta:hover span{transform:translateX(-4px)}
 .h4-wl{margin-top:30px}
-.h4-wlt{display:block;font:700 14px Assistant;letter-spacing:.04em;color:#5d5a55;margin-bottom:12px}
+.h4-wlt{display:block;font:700 14px var(--ui-font);letter-spacing:.04em;color:#5d5a55;margin-bottom:12px}
 .h4-worlds{display:flex;flex-wrap:wrap;gap:14px 8px;min-height:96px;align-content:flex-start}
-.wc{position:relative;border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;font:700 14px Assistant;color:var(--ink);width:66px;-webkit-tap-highlight-color:transparent}
+.wc{position:relative;border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;font:700 14px var(--ui-font);color:var(--ink);width:66px;-webkit-tap-highlight-color:transparent}
 .wc-i{position:relative;width:62px;height:62px;border-radius:50%;overflow:hidden;background:#fff;box-shadow:0 0 0 3px #fff,0 10px 22px -14px rgba(60,40,20,.55);transition:box-shadow .25s,transform .25s}
 .wc-i img{position:absolute;inset:9%;width:82%;height:82%;object-fit:contain}
 .wc-i .house{transform:scale(1.02)}
@@ -28,7 +28,7 @@ body.h4b{background:var(--gray-b)}
 .wc:hover .wc-i{transform:translateY(-3px)}
 .wc.on .wc-i{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--coral),0 12px 24px -14px rgba(60,40,20,.6)}
 .wc.on{color:var(--coral)}
-.wc-k{position:absolute;top:-3px;left:1px;z-index:2;width:22px;height:22px;border-radius:50%;background:var(--coral);color:#fff;font:800 12px/22px Assistant;text-align:center;transform:scale(0);box-shadow:0 0 0 2px #fff}
+.wc-k{position:absolute;top:-3px;left:1px;z-index:2;width:22px;height:22px;border-radius:50%;background:var(--coral);color:#fff;font:800 12px/22px var(--ui-font);text-align:center;transform:scale(0);box-shadow:0 0 0 2px #fff}
 .wc.on .wc-k{transform:scale(1)}
 .wc-p .wc-i{background:#fff}
 .wc-p .wc-i img{filter:saturate(.9)}
@@ -40,7 +40,7 @@ body.h4b{background:var(--gray-b)}
 .h4-piece .h4p>.ov svg{width:100%;height:100%;display:block}
 .h4-piece .h4p .ds{position:absolute;max-width:none;opacity:0}
 .h4-piece .gs{position:absolute;left:50%;bottom:-3%;width:86%;height:7%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(70,50,30,.22),rgba(70,50,30,0));pointer-events:none}
-.h4-cap{position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;border-radius:999px;padding:6px 16px;font:600 14px Assistant;color:#5d5a55;box-shadow:0 10px 24px -16px rgba(60,40,20,.5);z-index:3}
+.h4-cap{position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;white-space:nowrap;background:#fff;border-radius:999px;padding:6px 16px;font:600 14px var(--ui-font);color:#5d5a55;box-shadow:0 10px 24px -16px rgba(60,40,20,.5);z-index:3}
 .h4-cap b{font:700 14px Playpen;color:var(--ink)}
 .h4-cap span:before{content:"·";margin-inline-end:8px;color:var(--coral)}
 /* loose organic furniture circles — sizes/positions set inline via --fc, left, top; each has its own brand-color ring */
@@ -52,7 +52,7 @@ body.h4b{background:var(--gray-b)}
 .fc[data-f="kitchen"]{--ring:var(--lilac-b)}
 .fc-i{position:relative;width:var(--fc);height:var(--fc);border-radius:50%;background:#fff;box-shadow:0 0 0 3.5px var(--ring),0 14px 28px -16px rgba(60,40,20,.55);display:grid;place-items:center;transition:box-shadow .25s}
 .fc-i img{width:72%;height:72%;object-fit:contain}
-.fc-l{position:absolute;top:calc(100% + 6px);font:700 13px Assistant;background:rgba(255,255,255,.92);border-radius:999px;padding:2px 10px;white-space:nowrap;color:#5d5a55}
+.fc-l{position:absolute;top:calc(100% + 6px);font:700 13px var(--ui-font);background:rgba(255,255,255,.92);border-radius:999px;padding:2px 10px;white-space:nowrap;color:#5d5a55}
 .fc.on .fc-i{box-shadow:0 0 0 4px var(--ring),0 0 0 8px color-mix(in srgb,var(--ring) 55%,transparent),0 14px 28px -16px rgba(60,40,20,.55)}
 .fc.on .fc-l{background:var(--coral);color:#fff}
 .fc:hover .fc-i{box-shadow:0 0 0 4px var(--ring),0 0 0 7px color-mix(in srgb,var(--ring) 45%,transparent),0 14px 28px -16px rgba(60,40,20,.55)}
