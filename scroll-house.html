@@ -1,0 +1,70 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>פופלינו · מבית לבן לבית שלה</title>
+<style>
+@font-face{font-family:Playpen;src:url(fonts/PlaypenSansHebrew.woff2);font-display:swap}
+@font-face{font-family:Ploni;src:url(assets/fonts/ploni-regular.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Ploni;src:url(assets/fonts/ploni-medium.woff2) format('woff2');font-weight:500;font-display:swap}
+:root{--bg:#f4f3f1;--ink:#3d4743;--sage:#bdd1c8;--blush:#e1cdc8;--lilac:#c7bcce;--butter:#f1e0b5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Ploni,system-ui,sans-serif}
+h1,h2{font-family:Playpen,Ploni,sans-serif;font-weight:500;margin:0}
+.intro{min-height:70vh;display:grid;place-content:center;text-align:center;padding:12vh 24px 4vh}
+.intro h1{font-size:clamp(38px,6vw,76px);line-height:1.15}
+.line{display:block;overflow:hidden}.line>span{display:inline-block;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.7,.1,1)}
+.in .line>span{transform:none}.in .line:nth-child(2)>span{transition-delay:.15s}
+.intro p{font-size:19px;opacity:0;transition:opacity 1s .5s;margin-top:18px}.in p{opacity:.75}
+.hint{margin-top:40px;font-size:14px;opacity:.5}
+.track{height:420vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;gap:4vw;padding:3vh 4vw}
+.house{position:relative;height:min(84vh,92vw);aspect-ratio:1440/1465}
+canvas{width:100%;height:100%;display:block}
+.pt{position:absolute;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;background:#fff;border-radius:999px;padding:7px 14px 7px 10px;box-shadow:0 4px 18px rgba(60,70,65,.08);opacity:0;transform:translateY(8px);transition:.5s;white-space:nowrap}
+.pt i{width:10px;height:10px;border-radius:50%;background:var(--c)}.pt.on{opacity:1;transform:none}
+.side{width:260px;display:flex;flex-direction:column;gap:28px}
+.stat{opacity:.25;transition:opacity .5s}.stat.on{opacity:1}
+.stat b{font-family:Playpen,sans-serif;font-size:44px;font-weight:500;display:block;direction:ltr;text-align:right}
+.stat span{font-size:16px;opacity:.75}
+.bar{height:3px;background:#e4e2de;border-radius:3px;overflow:hidden}.bar div{height:100%;width:0;background:var(--sage)}
+.step{font-size:18px;min-height:2.6em}
+.outro{min-height:80vh;display:grid;place-content:center;text-align:center;padding:10vh 24px}
+.outro h2{font-size:clamp(30px,4.5vw,54px)}.outro a{display:inline-block;margin-top:26px;background:var(--ink);color:#fff;text-decoration:none;padding:14px 30px;border-radius:999px;font-size:17px}
+.static{display:none}
+@media (max-width:760px){.stage{flex-direction:column;gap:2vh;justify-content:center}.house{height:auto;width:92vw}.side{width:92vw;flex-direction:row;flex-wrap:wrap;gap:12px 20px}.stat b{font-size:30px}.step{width:100%;min-height:0;font-size:16px}.bar{width:100%}.pt{font-size:12px;padding:5px 10px 5px 8px}}
+@media (prefers-reduced-motion:reduce){.track{display:none}.static{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1000px;margin:0 auto;padding:0 20px}.static img{width:100%}.static figcaption{text-align:center}.line>span,.intro p{transform:none;opacity:1;transition:none}}
+</style></head><body>
+<section class="intro" id="intro"><h1><span class="line"><span>מבית לבן…</span></span><span class="line"><span>לבית שלה</span></span></h1>
+<p>מדבקות ויניל שנחתכו במידה לבית הבובות פליסאט של איקאה</p><div class="hint">גללי למטה ↓</div></section>
+<section class="track" id="track"><div class="stage">
+ <div class="house"><canvas id="c" width="1440" height="1465"></canvas>
+  <div class="pt" data-at=".42" style="top:30%;right:8%;--c:var(--sage)"><i></i>ויניל מט</div>
+  <div class="pt" data-at=".58" style="top:42%;left:4%;--c:var(--lilac)"><i></i>יורד בלי סימנים</div>
+  <div class="pt" data-at=".8" style="top:80%;right:30%;--c:var(--butter)"><i></i>חתוך במידה לפליסאט</div>
+ </div>
+ <div class="side">
+  <div class="step" id="step">ככה הוא מגיע מאיקאה</div>
+  <div class="bar"><div id="bar"></div></div>
+  <div class="stat" data-at=".3" data-to="58×59"><b id="s1">0×0</b><span>ס״מ, המידה המדויקת של הבית</span></div>
+  <div class="stat" data-at=".88" data-to="10"><b id="s2">0</b><span>דקות, ובלי כלים</span></div>
+ </div>
+</div></section>
+<section class="static"><figure><img src="scroll-house/before.webp" alt="הבית הלבן"><figcaption>לפני</figcaption></figure><figure><img src="scroll-house/after.webp" alt="הבית המעוצב"><figcaption>אחרי</figcaption></figure></section>
+<section class="outro"><h2>הבית שלה, בעשר דקות</h2><a href="index.html">לכל העיצובים</a></section>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+requestAnimationFrame(()=>document.getElementById('intro').classList.add('in'));
+if(!RM){
+const N=60,c=document.getElementById('c'),x=c.getContext('2d'),F=[],track=document.getElementById('track');let cur=-1,want=0;
+function load(i){if(F[i])return;const im=new Image();im.decoding='async';im.src=`scroll-house/f/${String(i).padStart(2,'0')}.webp`;im.onload=()=>{if(i===want||cur<0)draw(want)};F[i]=im}
+function draw(i){let j=i;while(j>=0&&!(F[j]&&F[j].complete&&F[j].naturalWidth))j--;if(j<0||j===cur)return;x.drawImage(F[j],0,0);cur=j}
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){for(let i=0;i<N;i++)load(i);o.disconnect()}},{rootMargin:'100% 0px'}).observe(track);
+const pts=[...document.querySelectorAll('.pt')],stats=[...document.querySelectorAll('.stat')],step=document.getElementById('step'),bar=document.getElementById('bar');
+const steps=[[0,'ככה הוא מגיע מאיקאה'],[.12,'עץ אמיתי, קירות לבנים'],[.3,'חדר אחרי חדר'],[.9,'וזה הבית שלה']];
+function upd(){const r=track.getBoundingClientRect(),p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight)));
+ want=Math.round(p*(N-1));draw(want);bar.style.width=p*100+'%';
+ pts.forEach(e=>e.classList.toggle('on',p>=+e.dataset.at));
+ step.textContent=steps.filter(s=>p>=s[0]).pop()[1];
+ stats.forEach((e,k)=>{const a=+e.dataset.at,t=Math.min(1,Math.max(0,(p-a+.12)/.12));e.classList.toggle('on',t>0);
+  const b=e.querySelector('b');b.textContent=k===0?`${Math.round(58*t)}×${Math.round(59*t)}`:Math.round(10*t)});}
+const L=window.Lenis?new Lenis({lerp:.1}):null;function raf(t){L&&L.raf(t);upd();requestAnimationFrame(raf)}requestAnimationFrame(raf);
+}
+</script></body></html>
